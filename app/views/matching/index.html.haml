@@ -1,0 +1,24 @@
+.matchingPage
+  .header
+    %i.fas.fa-comments.fa-3x
+    .header_logo
+      = link_to users_path do
+        = image_tag("techpit-march-icon.png")
+  
+  .container
+    .mt-5
+      .matchingNum
+        = @match_users.size
+        人とマッチングしています
+      %h2.pageTitle
+        マッチングした人一覧
+      .matchingList
+        -@match_users.each do |user|
+          .matchingPerson
+            .matchingPerson_img
+              = image_tag user.img_name.url(:thumb)
+            .matchingPerson_name
+              = user.name
+            = form_tag :chat_index, method: :post do
+              %input{name:"user_id",type:"hidden",value:"#{user.id}"}
+              = submit_tag 'チャットを開く', class: "chatForm_btn"

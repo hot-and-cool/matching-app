@@ -1,0 +1,27 @@
+.usershowPage
+  .container
+    .header
+      .header_logo
+        = link_to image_tag("techpit-march-icon.png"), users_path
+        - if current_user.id == @user.id
+          = link_to  likes_user_path do
+            %i.fas.fa-heart.fa-2x
+    .userInfo
+      .userInfo_img
+        = image_tag @user.img_name.url(:thumb)
+      .userInfo_name
+        = @user.name
+      .userInfo_selfIntroduction
+        %span.title 自己紹介
+        %br
+        = @user.self_introduction
+    -if current_user.id == @user.id
+      .userAction
+        .userAction_edit.userAction_common
+          = link_to content_tag(:i, "", class: 'fas fa-edit fa-2x'), edit_user_registration_path
+          %span
+            情報を編集
+        .userAction_logout.userAction_common
+          = link_to content_tag(:i, "", class: 'fas fa-cog fa-2x'), destroy_user_session_path, method: :delete
+          %span
+            ログアウト

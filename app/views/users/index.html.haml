@@ -1,0 +1,84 @@
+.topPage
+  %nav.nav
+    %ul
+      %li.personIcon
+        = link_to content_tag(:i, "", class: 'fas fa-2x fa-user'), user_path(current_user.id)
+      %li.appIcon
+        = link_to image_tag("techpit-march-icon.png"),users_path
+      %li.messageIcon
+        = link_to content_tag(:i, "", class: 'fas fa-2x fa-comments'), matching_index_path
+  #tinderslide
+    %ul
+      -@users.each do |user|
+        %li{"data-user_id" => "#{user.id}"}
+          .userName
+            = user.name
+          .user-self-introduction
+            = user.self_introduction
+          = link_to user_path(user.id) do
+            = image_tag user.img_name.url(:thumb)
+          .like
+          .dislike
+    .noUser
+      近くにお相手がいません
+  
+  .actions#actionBtnArea
+    =link_to '#' ,class: "dislike" do
+      %i.fas.fa-times.fa-2x
+    =link_to '#' ,class: "like" do
+      %i.fas.fa-heart.fa-2x
+
+:javascript
+  
+  var usersNum = #{@users.length}
+  var currentUserIndex = 0;
+  var postReaction = function (user_id, reaction) {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+        }
+    });
+    $.ajax({
+      type: "POST",
+      url: "#{reactions_path}",
+      data: {
+        user_id: user_id,
+        reaction: reaction,
+      },
+      success: function(j_data){
+        console.log("success")
+      }
+    });
+  }
+  $("#tinderslide").jTinder({
+    onDislike: function (item) {
+      currentUserIndex++;
+      checkUserNum();
+      var user_id = item[0].dataset.user_id
+      postReaction(user_id, 'dislike')
+    },
+    onLike: function (item) {
+      currentUserIndex++;
+      checkUserNum();
+      var user_id = item[0].dataset.user_id
+      postReaction(user_id, 'like')
+    },
+    animationRevertSpeed: 200,
+    animationSpeed: 400,
+    threshold: 1,
+    likeSelector: '.like',
+    dislikeSelector: '.dislike'
+  });
+  $('.actions .like, .actions .dislike').click(function(e){
+    e.preventDefault();
+    $("#tinderslide").jTinder($(this).attr('class'));
+  });
+
+  function checkUserNum() {
+    // スワイプするユーザー数とスワイプした回数が同じになればaddClassする
+    if (currentUserIndex === usersNum){
+      $(".noUser").addClass("is-active");
+      $("#actionBtnArea").addClass("is-none")
+      return;
+    }
+  }

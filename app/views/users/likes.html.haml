@@ -1,0 +1,22 @@
+.matchingPage
+  .header
+    %i.fas.fa-heart.fa-2x
+    .header_logo
+      = link_to users_path do
+        = image_tag("techpit-march-icon.png")
+  .container
+    .mt-5
+      .matchingNum
+        =@sent_reaction_user_ids.size
+        人にいいねしています
+      %h2.pageTitle
+        いいねした人一覧
+      - @sent_reaction_user_ids.each do |s|
+        .matchingList
+          .matchingPerson
+            = link_to user_path(s.id),class:"matchingPerson_img" do
+              = image_tag s.img_name.url(:thumb)
+            .matchingPerson_name
+              = s.name
+            .matchingPerson_date
+              = s.created_at.strftime("%Y/%m/%d(#{%w(日 月 火 水 木 金 土)[s.created_at.wday]})%H:%M")
