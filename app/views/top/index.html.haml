@@ -2,5 +2,7 @@
   .container
     .loginPage__contents
       %h1.h4.loginPage__contents__title
-        新しいマッチを見つけよう
+        さあ、新しい出会いを見つけよう
+      = image_tag '/logo.png', height: '300px', width: '300px',class:'loginPage__contents__logo'
       = link_to "メールアドレスでログインする", new_user_session_path, class: "btn loginPage__contents__btn"
+      = link_to "アカウントを作成する", new_user_registration_path, class: "btn loginPage__contents__btn"

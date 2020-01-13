@@ -3,7 +3,8 @@
     %i.fas.fa-comments.fa-3x
     .header_logo
       = link_to users_path do
-        = image_tag("techpit-march-icon.png")
+        = image_tag "/lovers.png"
+    
   
   .container
     .mt-5
@@ -16,7 +17,8 @@
         -@match_users.each do |user|
           .matchingPerson
             .matchingPerson_img
-              = image_tag user.img_name.url(:thumb)
+              = link_to user_path(user.id) ,class:"matchingPerson_img" do
+                = image_tag user.img_name.url(:thumb)
             .matchingPerson_name
               = user.name
             = form_tag :chat_index, method: :post do

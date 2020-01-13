@@ -12,6 +12,18 @@
         }
       }
     }
+    &_likes-index{
+      margin-right: 50px;
+      display: flex;
+     
+      a{
+        margin-left: 50px;
+        color:#FD5068;
+        p{
+          width: 100px;
+        }
+      }
+    }
   }
 
   .userInfo {

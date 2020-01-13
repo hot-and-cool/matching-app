@@ -1,10 +1,19 @@
-$main-color: #fd5068;
-$main-text-color: #fff;
 
 body {
   overflow: visible;
 }
 
+.blank{
+  border-top: 1px solid lightgray;
+  opacity: 0.8;
+  margin-top: 50px;
+  
+  p{
+    margin-top: 10px;
+    color:#EE4949;
+    font-weight: bold;
+  }
+}
 .notice,
 .alert {
   display: none;
@@ -14,15 +23,16 @@ body {
   .header {
     padding: 20px;
     text-align: center;
-    background: $main-color;
-    color: $main-text-color;
+    color:#EE4949;
+   
+    
   }
   .userProfileImg {
     position: relative;
     margin: 0 auto 10px auto;
     width: 100px;
     height: 100px;
-    background: #f85a6f;
+    @include main-color;
     display: flex;
     cursor: pointer;
     align-items: center;
@@ -70,8 +80,8 @@ body {
     }
   }
   .submitBtn {
-    background: $main-color;
-    color: $main-text-color;
+    @include main-color;
+    @include main-text-color;
     width: 200px;
     padding: 10px;
     border-radius: 90px;

@@ -3,7 +3,7 @@
     %i.fas.fa-heart.fa-2x
     .header_logo
       = link_to users_path do
-        = image_tag("techpit-march-icon.png")
+        = image_tag "/lovers.png"
   .container
     .mt-5
       .matchingNum
@@ -19,4 +19,4 @@
             .matchingPerson_name
               = s.name
             .matchingPerson_date
-              = s.created_at.strftime("%Y/%m/%d(#{%w(日 月 火 水 木 金 土)[s.created_at.wday]})%H:%M")
+              -# = s.created_at.strftime("%Y/%m/%d(#{%w(日 月 火 水 木 金 土)[s.created_at.wday]})%H:%M")

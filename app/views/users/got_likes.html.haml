@@ -1,38 +1,46 @@
-.topPage
-  %nav.nav
-    %ul
-      %li.personIcon
-        = link_to content_tag(:i, "", class: 'fas fa-2x fa-user'), user_path(current_user.id)
-      %li.appIcon
-        = link_to image_tag("/lovers.png"),users_path
-      %li.messageIcon
-        = link_to content_tag(:i, "", class: 'fas fa-2x fa-comments'), matching_index_path
+.matchingPage
+  .header
+    %i.fas.fa-heart.fa-2x
+    .header_logo
+      = link_to users_path do
+        = image_tag "/lovers.png"
+
+  .container
+    .mt-5
+      .matchingNum
+        %span
+        今まで
+        =@got_reaction_user_ids.size
+        人にいいねされました
+      %h2.pageTitle
+        いいねされました！
   #tinderslide
     %ul
-      -@users.each do |user|
-        %li{"data-user_id" => "#{user.id}"}
+      - @got_reaction_user_ids.each do |g|
+        %li{"data-user_id" => "#{g.id}"}
           .userName
-            = user.name
-            = "#{(Date.today.strftime("%Y%m%d").to_i - user.birthday.strftime("%Y%m%d").to_i) / 10000}歳"
-            = user.prefecture.name
+            = g.name
+            = "#{(Date.today.strftime("%Y%m%d").to_i - g.birthday.strftime("%Y%m%d").to_i) / 10000}歳"
+            = g.prefecture.name
           .user-self-introduction
-            = user.self_introduction
-          = link_to user_path(user.id) do
-            = image_tag user.img_name.url(:thumb)
+            = g.self_introduction
+          = link_to user_path(g.id) do
+            = image_tag g.img_name.url(:thumb)
           .like
           .dislike
     .noUser
-      近くにお相手がいません
-  
-  .actions#actionBtnArea
-    =link_to '#' ,class: "dislike" do
-      %i.fas.fa-times.fa-2x
-    =link_to '#' ,class: "like" do
-      %i.fas.fa-heart.fa-2x
+      いいねが来てません
+      
+  - if @got_reaction_user_ids
+    .actions#actionBtnArea
+      =link_to '#' ,class: "dislike" do
+        %i.fas.fa-times.fa-2x
+      =link_to '#' ,class: "like" do
+        %i.fas.fa-heart.fa-2x
 
 :javascript
   
-  var usersNum = #{@users.length}
+  var usersNum = #{@got_reaction_user_ids.length}
   var currentUserIndex = 0;
   var postReaction = function (user_id, reaction) {
     $.ajaxSetup({

@@ -6,8 +6,8 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: %i(name self_introduction sex img_name))
-    devise_parameter_sanitizer.permit(:account_update, keys: %i(name self_introduction sex img_name))
+    devise_parameter_sanitizer.permit(:sign_up, keys: %i(name self_introduction sex img_name prefecture_id blood_type_id education_id birthday body_id job_id income_id height_id))
+    devise_parameter_sanitizer.permit(:account_update, keys: %i(name self_introduction sex img_name prefecture_id body_id education_id job_id income_id height_id))
     # %i以下はkeys: [:name, :self_introduction, :sex, :img_name]と同等
   end
 

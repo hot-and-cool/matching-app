@@ -1,8 +1,11 @@
 %body
   .sinupPage
     %header.header
-      %div アカウントを作成
+      = link_to image_tag('/logo.png', height: '300px', width: '300px'),root_path
+      
     .container
+      .blank
+        %p アカウント作成
       = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class:"mt-5" }) do |f|
         = devise_error_messages!
         %label.rounded-circle.userProfileImg{:for => "file_photo"}
@@ -13,21 +16,25 @@
           %img#thumbnail.userImgPreview_content{:accept => "image/*", :src => ""}/
           %p.userImgPreview_text 画像をアップロード済み
         .form-group
-          %label 名前
+          %label ニックネーム(必須)
           = f.text_field :name, class: "form-control", placeholder: "名前を入力してください"
         .form-group
-          %label Eメールアドレス
+          %label Eメールアドレス(必須)
           = f.email_field :email, class: "form-control", placeholder: "emailを入力してください" ,autocomplete: "email"
         .form-group
-          %label パスワード
+          %label パスワード(必須)
           - if @minimum_password_length
             %em
               (#{@minimum_password_length}文字以上入力してください)
           %br/
           = f.password_field :password, class: "form-control", placeholder:"パスワードを入力してください", autocomplete: "off"
         .form-group
-          %label 確認用パスワード
+          %label 確認用パスワード(必須)
           = f.password_field :password_confirmation, class:"form-control", placeholder: "パスワードを再度入力してください", autocomplete: "off"
+        
+        .blank
+          %p 基本プロフィール(必須)
+            
         .form-group
           %div
             %label{:for => ""} 性別
@@ -37,6 +44,47 @@
           .form-check.form-check-inline
             = f.radio_button :sex, "女", class: "form-check-input", id: "inlineRadio2"
             %label.form-check-label{:for => "inlineRadio2"} 女
+
+        .form-group
+          %label 居住地
+          %br
+          = f.collection_select(:prefecture_id, Prefecture.all, :id, :name, {prompt: "---"})
+        .form-group
+          %label 誕生日
+          %br
+          = f.date_select :birthday,{use_month_numbers: true, start_year: 1940, end_year: Time.current.year,prompt: "---"}
+
+        .form-group
+          %label 血液型
+          %br
+          = f.collection_select(:blood_type_id, BloodType.all, :id, :name, {prompt: "---"})
+        .form-group
+          %label 身長
+          %br
+          = f.collection_select(:height_id, Height.all, :id, :name, {prompt: "---"})
+        
+        .form-group
+          %label 周囲の人から言われる体型
+          %br
+          = f.collection_select(:body_id, Body.all, :id, :name, {prompt: "---"})
+
+        .form-group
+          %label 学歴
+          %br
+          = f.collection_select(:education_id, Education.all, :id, :name, {prompt: "---"})
+       
+        .form-group
+          %label 職種
+          %br
+          = f.collection_select(:job_id, Job.all, :id, :name, {prompt: "---"})
+
+        .form-group
+          %label 年収
+          %br
+          = f.collection_select(:income_id, Income.all, :id, :name, {prompt: "---"})
+
+        .blank
+          %p 詳細プロフィール(任意)
         .form-group
           %label 自己紹介文
           = text_area :user, :self_introduction, maxlength: "1000", rows: "10", class:"form-control"

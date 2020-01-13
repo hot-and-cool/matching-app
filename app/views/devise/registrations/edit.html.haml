@@ -11,16 +11,38 @@
         = f.label '自己紹介'
         = f.text_area :self_introduction, class: "form-control"
 
-      .form-group
-        性別:
-        = f.label '男'
-        = f.radio_button :sex, :男
-        = f.label '女'
-        = f.radio_button :sex, :女 
 
       .form-group
         画像:
         = f.file_field :img_name
+
+      .form-group
+        %label 居住地
+        %br
+        = f.collection_select(:prefecture_id, Prefecture.all, :id, :name, {prompt: "---"})
+      .form-group
+        %label 身長
+        %br
+        = f.collection_select(:height_id, Height.all, :id, :name, {prompt: "---"})
+
+      .form-group
+        %label 周囲の人から言われる体型
+        %br
+        = f.collection_select(:body_id, Body.all, :id, :name, {prompt: "---"})
+      .form-group
+        %label 学歴
+        %br
+        = f.collection_select(:education_id, Education.all, :id, :name, {prompt: "---"})
+
+      .form-group
+        %label 職種
+        %br
+        = f.collection_select(:job_id, Job.all, :id, :name, {prompt: "---"})
+
+      .form-group
+        %label 年収
+        %br
+        = f.collection_select(:income_id, Income.all, :id, :name, {prompt: "---"})
 
       .form-group
         = f.label '更新するにはパスワードを入力してください'
@@ -29,4 +51,4 @@
       .text-center
         = f.submit '更新', class: "btn submitBtn"
         = link_to user_path(current_user.id) do
-          %p　戻る
+          %p 戻る

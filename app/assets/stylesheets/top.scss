@@ -1,4 +1,8 @@
 .loginPage {
+  background-image: url("/TS0529000_TP_V.jpg");
+  background-position: center;
+  background-size: cover;
+  height: 100%;
   &__contents {
     height: 80vh;
     display: flex;
@@ -6,7 +10,16 @@
     justify-content: space-between;
     text-align: center;
     &__title {
-      margin-top: 12vh;
+      margin-top: 10vh;
+      font-size:30px;
+      color:#EE4949;
+      font-weight: bold;
+      font-family: 'Hiragino Maru Gothic ProN';
+    }
+
+    &__logo{
+      margin: 0 auto;
+
     }
     &__btn {
       display: block;
@@ -14,8 +27,8 @@
       padding: 20px;
       margin: 0 auto;
       border-radius: 30px;
-      background: #fd5068;
       color: #fff;
+      @include main-color;
     }
   }
 }
