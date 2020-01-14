@@ -32,3 +32,22 @@
     }
   }
 }
+
+.search-icon{
+  width: 150px;
+  height: 150px;
+  @include main-color;
+  border-radius: 100%;
+  position: relative;
+  float: right;
+  position: fixed;
+  bottom: 20%;
+  right: 20%;
+  z-index: 100;
+  .fa-search{
+    color:rgb(255, 255, 255);
+    position: absolute;
+    top: 45px;
+    left:45px ;
+  }
+}

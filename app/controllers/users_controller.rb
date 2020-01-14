@@ -4,7 +4,9 @@ class UsersController < ApplicationController
   
   def index
     @users = User.where.not(id:current_user.id,sex:current_user.sex)
-    
+    # @search = User.search(params[:])
+
+
   end
 
   def show
@@ -12,11 +14,11 @@ class UsersController < ApplicationController
   end
 
   def likes
-    @sent_reaction_user_ids = Reaction.where(from_user_id: @user.id, status: 'like').order("id DESC").map(&:to_user)
+    @sent_reaction_user_ids = Reaction.includes(:to_user).where(from_user_id: @user.id, status: 'like').order("id DESC").map(&:to_user)
   end
 
   def got_likes
-    @got_reaction_user_ids =  Reaction.where(to_user_id: current_user.id, status: 'like').order("id DESC").map(&:from_user)
+    @got_reaction_user_ids =  Reaction.includes(:from_user).where(to_user_id: current_user.id, status: 'like').order("id DESC").map(&:from_user)
   end
 
   def set_user

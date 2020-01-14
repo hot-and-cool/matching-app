@@ -78,3 +78,7 @@ gem 'mini_magick'
 gem 'active_hash'
 
 gem 'ransack'
+
+group :development, :test do
+  gem 'bullet'
+end
