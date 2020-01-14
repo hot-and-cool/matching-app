@@ -1,0 +1,67 @@
+.matchingPage
+  .header
+    %i.fas.fa-search.fa-2x
+    .header_logo
+      = link_to users_path do
+        = image_tag "/lovers.png"
+    
+  
+  .container
+    .mt-5
+      %h2.pageTitle
+        ユーザー検索
+
+      .search-window
+        = search_form_for @search, url:result_search_index_path do |f|
+          %p
+            = f.label :prefecture_id_eq, '居住地:'
+            = f.collection_select :prefecture_id_eq, @prefectures, :id, :name, {include_blank: "指定しない"}
+          %p
+            = f.label :blood_type_id_eq, '血液型:'
+            = f.radio_button 'blood_type_id_eq', '', {:checked => true}
+            指定しない
+            = f.collection_radio_buttons :blood_type_id_eq,@blood_types, :id, :name
+          %p
+            = f.label :height_id_gteq, '身長'
+            = f.radio_button 'height_id_gteq','',{:checked => true}
+            指定しない
+            = f.radio_button 'height_id_gteq','1'
+            150cm以上
+            = f.radio_button 'height_id_gteq','4'
+            160cm以上
+            = f.radio_button 'height_id_gteq','6'
+            170cm以上
+            = f.radio_button 'height_id_gteq','8'
+            180cm以上
+
+          %p
+            =  f.label :body_id_in, '体型(複数選択可):'
+            %br
+            =  f.collection_check_boxes :body_id_in, @bodies, :id, :name
+
+
+          %p
+            =  f.label :income_id_in, '年収(複数選択可):'
+            %br
+            =  f.collection_check_boxes :income_id_in, @incomes, :id, :name
+          %p
+            = f.label :self_introduction_cont, '自己紹介:'
+            = f.search_field :self_introduction_cont
+          = f.submit
+
+      -# データ確認
+      -# %table.search-users
+      -#   - @search_users.each do |s|
+      -#     %tr
+      -#       %td
+      -#         = s.name
+      -#       %td
+      -#         = s.sex
+      -#       %td
+      -#         = "#{(Date.today.strftime("%Y%m%d").to_i - s.birthday.strftime("%Y%m%d").to_i) / 10000}歳"
+      -#       %td
+      -#         = s.prefecture.name
+      -#       %td
+      -#         = s.self_introduction
+      -#       %td
+      -#         = s.income.name

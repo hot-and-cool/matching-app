@@ -1,0 +1,115 @@
+.matchingPage
+  .header
+    %i.fas.fa-search.fa-2x
+    .header_logo
+      = link_to users_path do
+        = image_tag "/lovers.png"
+    
+  
+  .container
+    %br.search_query
+    検索条件:
+    - unless params[:q][:prefecture_id_eq].empty?
+      = Prefecture.find(params[:q][:prefecture_id_eq]).name
+      ,
+    - unless params[:q][:blood_type_id_eq].empty?
+      = BloodType.find(params[:q][:blood_type_id_eq]).name
+      ,
+    - unless params[:q][:height_id_gteq].empty?
+      = Height.find(params[:q][:height_id_gteq]).name
+      //モデルの値がそのまま表示されてしまう
+      ,
+    - unless params[:q][:body_id_in].reject(&:blank?).empty?
+      = params[:q][:body_id_in].reject(&:blank?).map{|body_id| Body.find(body_id).name}.join(', ')
+      ,
+    - unless params[:q][:income_id_in].reject(&:blank?).empty?
+      = params[:q][:income_id_in].reject(&:blank?).map{|income_id| Income.find(income_id).name}.join(', ')
+      ,
+    - unless params[:q][:self_introduction_cont].empty?
+      = params[:q][:self_introduction_cont]
+    
+    = link_to search_index_path do
+      %p 変更
+
+
+    %h2.pageTitle
+      検索結果
+      = @search_users.size
+      人
+  #tinderslide
+    %ul
+      - @search_users.each do |s|
+        %li{"data-user_id" => "#{s.id}"}
+          .userName
+            = s.name
+            = "#{(Date.today.strftime("%Y%m%d").to_i - s.birthday.strftime("%Y%m%d").to_i) / 10000}歳"
+            = s.prefecture.name
+          .user-self-introduction
+            = s.self_introduction
+          = link_to user_path(s.id) do
+            = image_tag s.img_name.url(:thumb)
+          .like
+          .dislike
+    .noUser
+      見つかりません
+  - if @search_users
+    .actions#actionBtnArea
+      =link_to '#' ,class: "dislike" do
+        %i.fas.fa-times.fa-2x
+      =link_to '#' ,class: "like" do
+        %i.fas.fa-heart.fa-2x
+
+:javascript
+  
+  var usersNum = #{@search_users.length}
+  var currentUserIndex = 0;
+  var postReaction = function (user_id, reaction) {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+        }
+    });
+    $.ajax({
+      type: "POST",
+      url: "#{reactions_path}",
+      data: {
+        user_id: user_id,
+        reaction: reaction,
+      },
+      success: function(j_data){
+        console.log("success")
+      }
+    });
+  }
+  $("#tinderslide").jTinder({
+    onDislike: function (item) {
+      currentUserIndex++;
+      checkUserNum();
+      var user_id = item[0].dataset.user_id
+      postReaction(user_id, 'dislike')
+    },
+    onLike: function (item) {
+      currentUserIndex++;
+      checkUserNum();
+      var user_id = item[0].dataset.user_id
+      postReaction(user_id, 'like')
+    },
+    animationRevertSpeed: 200,
+    animationSpeed: 400,
+    threshold: 1,
+    likeSelector: '.like',
+    dislikeSelector: '.dislike'
+  });
+  $('.actions .like, .actions .dislike').click(function(e){
+    e.preventDefault();
+    $("#tinderslide").jTinder($(this).attr('class'));
+  });
+
+  function checkUserNum() {
+    // スワイプするユーザー数とスワイプした回数が同じになればaddClassする
+    if (currentUserIndex === usersNum){
+      $(".noUser").addClass("is-active");
+      $("#actionBtnArea").addClass("is-none")
+      return;
+    }
+  }
