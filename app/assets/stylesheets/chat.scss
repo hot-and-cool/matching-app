@@ -39,40 +39,9 @@
     overflow: scroll;
     height: 72vh;
     .message {
-      //相手が送ったメッセージ
-      &.selfMessage {
-        display: flex;
-        flex-direction: row-reverse;
-        .commonMessage {
-          margin: 1.5em 15px 1.5em 0;
-          padding: 7px 10px;
-          max-width: 100%;
-          color: #555;
-          font-size: 16px;
-          background: #e0edff;
-          &:before {
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: 100%;
-            margin-top: -10px;
-            border: 10px solid transparent;
-            border-left: 10px solid #e0edff;
-          }
-        }
-      }
-      &__img {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        overflow: hidden;
-        & > img {
-          width: 100%;
-        }
-      }
-
+      padding-top: 15px;
       //自分が送ったメッセージ
-      .commonMessage {
+      &__self-message {
         position: relative;
         display: inline-block;
         margin: 1.5em 0 1.5em 15px;
@@ -81,7 +50,8 @@
         color: #555;
         font-size: 16px;
         border-radius: 7px;
-        background: #f1f1f1;
+        background:#85e249;
+        float: right;
         & > p {
           margin: 0;
         }
@@ -92,25 +62,50 @@
           left: -20px;
           margin-top: -10px;
           border: 10px solid transparent;
-          border-right: 10px solid #f1f1f1;
+          border-right: 10px solid #85e249;
         }
-        &.selfMessage {
-          margin: 1.5em 15px 1.5em 0;
-          padding: 7px 10px;
-          max-width: 100%;
-          color: #555;
-          font-size: 16px;
-          background: #e0edff;
-          &:before {
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: 100%;
-            margin-top: -10px;
-            border: 10px solid transparent;
-            border-left: 10px solid #e0edff;
-          }
+      }
+
+
+      &__img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        overflow: hidden;
+        & > img {
+          width: 100%;
         }
+      }
+
+      //相手が送ったメッセージ
+      &__common-message {
+        position: relative;
+        display: inline-block;
+        margin: 1.5em 0 1.5em 15px;
+        padding: 7px 10px;
+        max-width: 100%;
+        color: #555;
+        font-size: 16px;
+        border-radius: 7px;
+        background:#f5f5f5;
+        
+        & > p {
+          margin: 0;
+        }
+        &:before {
+          content: "";
+          position: absolute;
+          top: 50%;
+          left: -20px;
+          margin-top: -10px;
+          border: 10px solid transparent;
+          border-right: 10px solid #f5f5f5;
+        }
+      }
+      &__sent-time{
+        font-size: 12px;
+        color: #999999;;
+
       }
     }
   }
