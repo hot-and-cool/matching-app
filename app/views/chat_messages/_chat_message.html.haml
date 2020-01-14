@@ -1,10 +1,11 @@
 .message
-  -# - if chat_message.user.id == %current_user.id
+  -# - if chat_message.user.id == current_user.id
   -# - else 自身のメッセージの場合、アイコンと名前を非表示にする
   = link_to user_path(chat_message.user.id)  do
     = image_tag chat_message.user.img_name.url(:thumb),class:"message__img"
   = chat_message.user.name
   %span :
-  .commonMessage
+  .message__common-message
     = chat_message.message
-
+  .message__sent-time
+    = chat_message.created_at.strftime('%Y/%m/%d %H:%M')
