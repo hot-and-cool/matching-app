@@ -76,3 +76,5 @@ gem 'carrierwave', '~> 1.0'
 gem 'mini_magick'
 
 gem 'active_hash'
+
+gem 'ransack'
