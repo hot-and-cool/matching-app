@@ -54,8 +54,20 @@
         = @user.income.name
 
     .userComment
-      %h3 
+      %h3.title
         = "#{@user.name}へのコメント"
+      .userComment_form
+        -if current_user
+          = form_with model: [@user, @comment], local: true do |f|
+            = f.text_area :text, placeholder: "印象などコメントしてみよう", rows: "2"
+            = f.submit "コメントする"
+        -else
+          %strong コメントできません
+      
+      .userComment_index 
+        = @comments
+      
+
 
 
         

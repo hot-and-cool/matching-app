@@ -14,6 +14,9 @@ class UsersController < ApplicationController
   def show
     @user_birthday = (Date.today.strftime("%Y%m%d").to_i - @user.birthday.strftime("%Y%m%d").to_i) / 10000
     @reaction_user_ids = Reaction.includes(:from_user).where(to_user_id: @user.id, status: 'like').order("id DESC").map(&:from_user)
+    @comment = Comment.new
+    @comments = @user.comments
+    
   end
 
   def likes

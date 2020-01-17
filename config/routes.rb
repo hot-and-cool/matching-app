@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :users, only: %i(index show) do
     get 'likes',on: :member
     get 'got_likes',on: :member
+    resources :comments,only: %i(create)
   end
 
   resources :reactions, only: %i(create)
