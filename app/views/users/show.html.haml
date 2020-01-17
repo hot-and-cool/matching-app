@@ -53,6 +53,10 @@
         %span.title 年収:
         = @user.income.name
 
+    .userComment
+      %h3 
+        = "#{@user.name}へのコメント"
+
 
         
     -if current_user.id == @user.id

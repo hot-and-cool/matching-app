@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_03_035925) do
+ActiveRecord::Schema.define(version: 2020_01_17_084912) do
 
   create_table "chat_messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "chat_room_id", null: false
@@ -28,6 +28,14 @@ ActiveRecord::Schema.define(version: 2020_01_03_035925) do
   end
 
   create_table "chat_rooms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "to_user_id"
+    t.integer "from_user_id"
+    t.text "text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -55,10 +63,10 @@ ActiveRecord::Schema.define(version: 2020_01_03_035925) do
     t.string "prefecture_id", limit: 11
     t.date "birthday"
     t.integer "blood_type_id"
-    t.string "jobs"
+    t.string "job_id"
     t.integer "education_id"
-    t.integer "income"
-    t.string "height"
+    t.integer "income_id"
+    t.string "height_id"
     t.integer "body_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
