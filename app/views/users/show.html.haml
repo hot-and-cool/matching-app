@@ -19,6 +19,9 @@
       .userInfo_name
         = @user.name
         = "#{@user_birthday}歳"
+      .userInfo_like-size
+        %span.fas.fa-heart.fa-1x
+        = "#{@reaction_user_ids.size}人がいいねしました！"
 
       .userInfo_selfIntroduction
         %span.title 自己紹介

@@ -2,6 +2,8 @@ class UsersController < ApplicationController
   before_action :set_user,only: [:show,:likes,:ensure_correct_user]
   before_action :ensure_correct_user,only: [:likes]
   
+
+  
   def index
     @users = User.where.not(id:current_user.id,sex:current_user.sex)
     # @search = User.search(params[:])
@@ -11,6 +13,7 @@ class UsersController < ApplicationController
 
   def show
     @user_birthday = (Date.today.strftime("%Y%m%d").to_i - @user.birthday.strftime("%Y%m%d").to_i) / 10000
+    @reaction_user_ids = Reaction.includes(:from_user).where(to_user_id: @user.id, status: 'like').order("id DESC").map(&:from_user)
   end
 
   def likes
