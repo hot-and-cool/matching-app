@@ -17,7 +17,7 @@ class UsersController < ApplicationController
     @comment = Comment.new
     @comments = Comment.includes(:from_user).where(to_user_id: @user.id).order("id DESC")
     if @comments.blank?
-      @user_rates = 0
+      @user_rates = "--"
       else
         @user_rates = Comment.includes(:from_user).where(to_user_id: @user.id).average(:rate).ceil(1)
     end

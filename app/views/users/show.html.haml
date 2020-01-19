@@ -19,6 +19,8 @@
       .userInfo_name
         = @user.name
         = "#{@user_birthday}歳"
+        %span.fas.fa-star
+          = "#{@user_rates}点"
       .userInfo_like-size
         %span.fas.fa-heart.fa-1x
         = "#{@reaction_user_ids.size}人がいいねしました！"
@@ -59,10 +61,10 @@
       %a  ※誹謗・中傷コメントは避けましょう
       = form_with model: [@user, @comment], local: true do |f|
         #star.userReview_form-group.row
-          = f.label :rate,'評価 ', class:'col-md-3 col-form-label'
+          = f.label :rate,'印象', class:'col-md-3 col-form-label'
           = f.hidden_field :rate, id: :review_star
         .userReview_form-group.row
-          = f.label :text, 'コメント', class:'col-md-3 col-form-label'          
+          = f.label :text, 'コメント(任意)', class:'col-md-3 col-form-label'          
           .col-md-9
             =f.text_area :text, class: "form-control", rows: "3",placeholder:'最初の印象をコメントしよう！'
         .userReview_form-group.row
