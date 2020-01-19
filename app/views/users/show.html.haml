@@ -53,20 +53,38 @@
         %span.title 年収:
         = @user.income.name
 
-    .userComment
+    .userReview
       %h3.title
-        = "#{@user.name}へのコメント"
-      .userComment_form
-        -if current_user
-          = form_with model: [@user, @comment], local: true do |f|
-            = f.text_area :text, placeholder: "印象などコメントしてみよう", rows: "2"
-            = f.submit "コメントする"
-        -else
-          %strong コメントできません
+        = "#{@user.name}へコメントする"
+      %a  ※誹謗・中傷コメントは避けましょう
+      = form_with model: [@user, @comment], local: true do |f|
+        #star.userReview_form-group.row
+          = f.label :rate,'評価 ', class:'col-md-3 col-form-label'
+          = f.hidden_field :rate, id: :review_star
+        .userReview_form-group.row
+          = f.label :text, 'コメント', class:'col-md-3 col-form-label'          
+          .col-md-9
+            =f.text_area :text, class: "form-control", rows: "3",placeholder:'最初の印象をコメントしよう！'
+        .userReview_form-group.row
+          = f.submit '投稿する', class:"btn btn-success"
+        
+    - if @comments.present?
+      %h3.title 
+        レビュー:   
+        = "#{@user_rates}点"
+        = "(#{@comments.size}件)"
+      - @comments.each do |comment|
+        .row.comments
+          .col-md-2.comments-user
+            = link_to user_path(comment.from_user.id) do
+              = image_tag comment.from_user.img_name.url(:thumb),class:"comments__img"
+
+        = comment.from_user.name
+        = "#{comment.rate}点"
+        = comment.text
       
-      .userComment_index 
-        = @comments
-      
+    -else
+      %p レビューがありません
 
 
 
@@ -81,3 +99,15 @@
           = link_to content_tag(:i, "", class: 'fas fa-cog fa-2x'), destroy_user_session_path, method: :delete
           %span
             ログアウト
+
+
+:javascript
+  $('#star').raty({
+    size     : 36,
+    starOff:  '/assets/star-off.png',
+    starOn : '/assets/star-on.png',
+    starHalf: '/assets/star-half.png',
+    scoreName: 'comment[rate]',
+    half: true,
+  });
+   
