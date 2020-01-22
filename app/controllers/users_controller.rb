@@ -6,8 +6,6 @@ class UsersController < ApplicationController
   
   def index
     @users = User.where.not(id:current_user.id,sex:current_user.sex)
-    
-
   end
 
   def show
@@ -20,8 +18,9 @@ class UsersController < ApplicationController
       else
         @user_rates = Comment.includes(:from_user).where(to_user_id: @user.id).average(:rate).ceil(1)
     end
-    
   end
+
+  
 
   def likes
     @sent_reaction_user_ids = Reaction.includes(:to_user).where(from_user_id: @user.id, status: 'like').order("id DESC").map(&:to_user)
