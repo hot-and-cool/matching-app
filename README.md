@@ -64,3 +64,9 @@ pass:`aaaaaaaa`
 email:`f-test@test.com`
 pass:`aaaaaaaa`
  
+
+## :bulb: Requirement
+* ruby 2.5.1
+* rails 5.2.3
+* bootsnap 4.1.3
+* jquery
