@@ -2,6 +2,7 @@
 
 <img width="670" alt="スクリーンショット 2020-01-09 16 16 02" src="https://user-images.githubusercontent.com/56910235/72861648-edb2ab00-3d0d-11ea-9676-e322749300ff.png">
 
+ロゴはDesignEvoにて作成 https://www.designevo.com/jp/
 
 ## 📦 Features
 
