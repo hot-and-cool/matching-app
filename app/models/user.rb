@@ -10,7 +10,17 @@ class User < ApplicationRecord
 
   enum sex: { 男: 0, 女: 1 }
 
+
   validates :img_name, presence: true
+  validates :sex, presence: true
+  validates :prefecture_id, presence: true
+  validates :blood_type_id, presence: true
+  validates :education_id, presence: true
+  validates :body_id, presence: true
+  validates :job_id, presence: true
+  validates :income_id, presence: true
+  validates :height_id, presence: true
+
 
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to_active_hash :prefecture

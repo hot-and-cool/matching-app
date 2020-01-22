@@ -1,9 +1,5 @@
 .matchingPage
-  .header
-    %i.fas.fa-heart.fa-2x
-    .header_logo
-      = link_to users_path do
-        = image_tag "/lovers.png"
+  = render 'layouts/header-heart'
 
   .container
     .mt-5
