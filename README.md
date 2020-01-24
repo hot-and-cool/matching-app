@@ -7,8 +7,6 @@
 ## 📦 Features
 
 
-Techpit https://www.techpit.jp/
-
 ### Techpitのカリキュラムを参考に実装した機能一覧
 - レスポンシブデザイン対応
 - deviseでのユーザー登録、編集、ログイン、ログアウト機能
