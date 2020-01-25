@@ -65,7 +65,7 @@
       %h3.title
         = "#{@user.name}へコメントする"
       %a  ※誹謗・中傷コメントは避けましょう
-      = form_with model: [@user, @comment], local: true do |f|
+      = form_with model: [@user, @comment], remote: true, id: "comments_form" do |f|
         #star.userReview_form-group.row
           = f.label :rate,'印象', class:'col-md-3 col-form-label'
           = f.hidden_field :rate, id: :review_star
@@ -81,15 +81,18 @@
         レビュー:   
         = "#{@user_rates}点"
         = "(#{@comments.size}件)"
-      - @comments.each do |comment|
-        .row.comments
-          .col-md-2.comments-user
-            = link_to user_path(comment.from_user.id) do
-              = image_tag comment.from_user.img_name.url(:thumb),class:"comments__img"
+      .contents
+        - @comments.each do |comment|
+          .content
+            .row.comments
+              .col-md-2.comments-user
+                = link_to user_path(comment.from_user.id) do
+                  = image_tag comment.from_user.img_name.url(:thumb),class:"comments__img"
 
-        = comment.from_user.name
-        = "#{comment.rate}点"
-        = comment.text
+            = comment.from_user.name
+            = "#{comment.rate}点"
+            = comment.created_at.strftime('%Y/%m/%d %H:%M')
+            = comment.text
       
     -else
       %p レビューがありません

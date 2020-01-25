@@ -21,7 +21,9 @@ class User < ApplicationRecord
   validates :income_id, presence: true
   validates :height_id, presence: true
 
-  
+  def reaction_complete
+    Reaction.where(from_user_id: current_user.id, to_user_id: user.id)
+  end
 
 
   extend ActiveHash::Associations::ActiveRecordExtensions
