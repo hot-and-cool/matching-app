@@ -65,7 +65,7 @@
       %h3.title
         = "#{@user.name}へコメントする"
       %a  ※誹謗・中傷コメントは避けましょう
-      = form_with model: [@user, @comment], remote: true, id: "comments_form" do |f|
+      = form_with model: [@user, @comment], local: true, id: "comments_form" do |f|
         #star.userReview_form-group.row
           = f.label :rate,'印象', class:'col-md-3 col-form-label'
           = f.hidden_field :rate, id: :review_star
