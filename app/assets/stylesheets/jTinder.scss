@@ -52,9 +52,14 @@ html, body {
       -webkit-backface-visibility: hidden;
       .userName {
         position: absolute;
-        bottom: 100px;
+        bottom: 50px;
         color: #000;
         z-index: 100;
+        background-color: rgba(248, 246, 247, 0.9);
+        border-radius: 5px;
+        width: 95%;
+        height: 20%;
+
         
       }
       .user-self-introduction{
@@ -64,10 +69,12 @@ html, body {
         font-size:15px;
         z-index: 100;
       }
-      img {
+      
+      .user-image{
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
+        height: 100%;
       }
     }
   }

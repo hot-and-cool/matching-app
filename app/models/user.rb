@@ -21,6 +21,8 @@ class User < ApplicationRecord
   validates :income_id, presence: true
   validates :height_id, presence: true
 
+  
+
 
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to_active_hash :prefecture

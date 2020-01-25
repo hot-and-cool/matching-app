@@ -15,15 +15,16 @@
     %ul
       -@users.each do |user|
         %li{"data-user_id" => "#{user.id}"}
+          
           .userName
             = user.name
             = "#{(Date.today.strftime("%Y%m%d").to_i - user.birthday.strftime("%Y%m%d").to_i) / 10000}歳"
             = user.prefecture.name
             
-          .user-self-introduction
-            = user.self_introduction
+
+            
           = link_to user_path(user.id) do
-            = image_tag user.img_name.url(:thumb)
+            = image_tag user.img_name.url(:thumb),class:"user-image"
           .like
           .dislike
     .noUser

@@ -21,7 +21,7 @@
           .user-self-introduction
             = g.self_introduction
           = link_to user_path(g.id) do
-            = image_tag g.img_name.url(:thumb)
+            = image_tag g.img_name.url(:thumb),class:"user-image"
           .like
           .dislike
     .noUser
