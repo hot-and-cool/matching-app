@@ -9,8 +9,10 @@ class User < ApplicationRecord
   mount_uploader :img_name, ImgNameUploader
 
   enum sex: { 男: 0, 女: 1 }
+  
 
-
+  validates :password, presence: true
+  validates :name, presence: true
   validates :img_name, presence: true
   validates :sex, presence: true
   validates :prefecture_id, presence: true
