@@ -5,9 +5,14 @@ class UsersController < ApplicationController
 
   
   def index
-    @users = User.where.not(id:current_user.id,sex:current_user.sex)
+    # いいねしたカード無くしたい
+    @different_user_ids = User.where.not(id:current_user.id,sex:current_user.sex)
+    # いいねを送った人を抽出
+    @sent_reaction_ids = Reaction.where(from_user_id: current_user.id, status: 'like').pluck(:to_user_id)
+    @users = @different_user_ids - @sent_reaction_ids
     
   end
+
 
   def show
     @user_birthday = (Date.today.strftime("%Y%m%d").to_i - @user.birthday.strftime("%Y%m%d").to_i) / 10000
