@@ -1,0 +1,19 @@
+.matchingPage
+  = render 'layouts/header-footprint'
+  
+  .container
+    .mt-5
+      .matchingNum
+        =@visiters.size
+        人が訪れました
+      %h2.pageTitle
+        訪れた人一覧
+      - @visiters.each do |visitor|
+        .matchingList
+          .matchingPerson
+            = link_to user_path(visitor.id),class:"matchingPerson_img" do
+              = image_tag visitor.img_name.url(:thumb)
+            .matchingPerson_name
+              = visitor.name
+            .matchingPerson_date
+              

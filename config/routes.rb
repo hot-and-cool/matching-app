@@ -6,6 +6,9 @@ Rails.application.routes.draw do
     get 'likes',on: :member
     get 'got_likes',on: :member
     resources :comments,only: %i(create)
+    resources :footprints,only: %i(index create)
+      get 'visiters', on: :member
+      get 'visited', on: :member
   end
 
   resources :reactions, only: %i(create)

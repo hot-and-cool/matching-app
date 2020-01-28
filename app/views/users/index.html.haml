@@ -12,30 +12,32 @@
       %li.messageIcon
         = link_to content_tag(:i, "", class: 'fas fa-2x fa-comments'), matching_index_path
   #tinderslide
-    %ul
-      -@users.each do |user|
-        %li{"data-user_id" => "#{user.id}"}
-          
-          
-          .userName
-            = user.name
-            = "#{(Date.today.strftime("%Y%m%d").to_i - user.birthday.strftime("%Y%m%d").to_i) / 10000}歳"
-            = user.prefecture.name
+    - if @users.present?
+      %ul
+        -@users.each do |user|
+          %li{"data-user_id" => "#{user.id}"}
             
+            
+            .userName
+              = user.name
+              = "#{(Date.today.strftime("%Y%m%d").to_i - user.birthday.strftime("%Y%m%d").to_i) / 10000}歳"
+              = user.prefecture.name
+              
 
-            
-          = link_to user_path(user.id) do
-            = image_tag user.img_name.url(:thumb),class:"user-image"
-          .like
-          .dislike
-    .noUser
+              
+            = link_to user_path(user.id) do
+              = image_tag user.img_name.url(:thumb),class:"user-image"
+            .like
+            .dislike
+    -else
+      .noUser
       近くにお相手がいません
-  
-  .actions#actionBtnArea
-    =link_to '#' ,class: "dislike" do
-      %i.fas.fa-times.fa-2x
-    =link_to '#' ,class: "like" do
-      %i.fas.fa-heart.fa-2x
+  - if @users.present?
+    .actions#actionBtnArea
+      =link_to '#' ,class: "dislike" do
+        %i.fas.fa-times.fa-2x
+      =link_to '#' ,class: "like" do
+        %i.fas.fa-heart.fa-2x
 
 :javascript
   
@@ -87,7 +89,7 @@
     // スワイプするユーザー数とスワイプした回数が同じになればaddClassする
     if (currentUserIndex === usersNum){
       $(".noUser").addClass("is-active");
-      $("#actionBtnArea").addClass("is-none")
+      $("#actionBtnArea").addClass("is-none");
       return;
     }
   }

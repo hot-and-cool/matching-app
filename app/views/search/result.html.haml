@@ -40,10 +40,8 @@
             = s.name
             = "#{(Date.today.strftime("%Y%m%d").to_i - s.birthday.strftime("%Y%m%d").to_i) / 10000}歳"
             = s.prefecture.name
-          .user-self-introduction
-            = s.self_introduction
           = link_to user_path(s.id) do
-            = image_tag s.img_name.url(:thumb)
+            = image_tag s.img_name.url(:thumb),class:"user-image"
           .like
           .dislike
     .noUser
