@@ -3,6 +3,11 @@
 -#     %i.fas.fa-times.fa-2x
 -#   =link_to '#' ,class: "like" do
 -#     %i.fas.fa-heart.fa-2x
+.footprints-form
+  = form_with model: @footprint, url: user_footprints_path(current_user) do |f|
+    = f.hidden_field :visited_id, value: @user.id
+    = f.hidden_field :visiter_id, value: current_user.id
+    = f.submit "", style: 'display:none', id: "footprint_js"
 
 .usershowPage
   .container
@@ -13,11 +18,15 @@
       .header_likes-index
         - if current_user.id == @user.id
           = link_to  likes_user_path do
-            %i.fas.fa-heart.fa-2x
+            %i.fas.fa-heart.fa-2x.faa-shake.animated-hover
             %p いいねした人
           = link_to  got_likes_user_path class:"got-likes" do
-            %i.fas.fa-heart.fa-2x
+            %i.fas.fa-heart.fa-2x.faa-shake.animated-hover
             %p 届いたいいね
+
+          = link_to visiters_user_path  do
+            %i.fas.fa-shoe-prints.fa-2x.fa-rotate-270.faa-shake.animated-hover
+            %p 足跡
 
     .userInfo
       .userInfo_img
@@ -122,3 +131,5 @@
     half: true,
   });
 
+
+  $("#footprint_js").trigger('click')

@@ -1,20 +1,27 @@
 class UsersController < ApplicationController
-  before_action :set_user,only: [:show,:likes,:ensure_correct_user]
-  before_action :ensure_correct_user,only: [:likes]
+  before_action :set_user,only: [:show,:likes,:got_likes,:visiters,:visited,:ensure_correct_user]
+  before_action :ensure_correct_user,only: [:likes,:got_likes,:visiters,:visited]
   
 
   
   def index
-    # いいねしたカード無くしたい
-    @different_user_ids = User.where.not(id:current_user.id,sex:current_user.sex)
-    # いいねを送った人を抽出
-    @sent_reaction_ids = Reaction.where(from_user_id: current_user.id, status: 'like').pluck(:to_user_id)
-    @users = @different_user_ids - @sent_reaction_ids
+    # 自分以外の異性を抽出
+    @tusers = User.where.not(id:current_user.id,sex:current_user.sex)
+    # # いいねを送った人を抽出
+    @susers = Reaction.includes(:to_user).where(from_user_id: current_user.id, status: 'like').map(&:to_user)
+
+    # いいねしたら表示させない
+    @users = @tusers - @susers
+
+  
+    
+    
     
   end
 
 
   def show
+    @footprint = Footprint.new
     @user_birthday = (Date.today.strftime("%Y%m%d").to_i - @user.birthday.strftime("%Y%m%d").to_i) / 10000
     @reaction_user_ids = Reaction.includes(:from_user).where(to_user_id: @user.id, status: 'like').order("id DESC").map(&:from_user)
     @comment = Comment.new
@@ -34,6 +41,14 @@ class UsersController < ApplicationController
 
   def got_likes
     @got_reaction_user_ids =  Reaction.includes(:from_user).where(to_user_id: current_user.id, status: 'like').order("id DESC").map(&:from_user)
+  end
+
+  def visiters
+    @visiters = Footprint.includes(:visiter).where(visited_id: @user.id).order("id DESC").map(&:visiter)
+  end
+
+  def vidited
+    @visited = Footprint.where(visited_id: current_user.id)
   end
 
   def set_user

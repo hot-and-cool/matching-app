@@ -1,0 +1,2 @@
+module FootprintHelper
+end

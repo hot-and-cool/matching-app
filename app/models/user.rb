@@ -2,6 +2,7 @@ class User < ApplicationRecord
   has_many :chat_messages
   has_many :chat_room_users
   has_many :comments
+  has_many :footprints
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
