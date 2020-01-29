@@ -30,8 +30,8 @@
             .like
             .dislike
     -else
-      .noUser
-      近くにお相手がいません
+    .noUser
+      お相手がみつかりません
   - if @users.present?
     .actions#actionBtnArea
       =link_to '#' ,class: "dislike" do
