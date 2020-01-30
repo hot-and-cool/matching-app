@@ -17,6 +17,14 @@
 
       .header_likes-index
         - if current_user.id == @user.id
+          .container
+            = link_to edit_user_registration_path do
+              %i.fas.fa-user-edit.fa-2x
+              %p 情報を編集
+            = link_to destroy_user_session_path, method: :delete do
+              %i.fas.fa-door-open.fa-2x 
+              %p ログアウト
+
           = link_to  likes_user_path do
             %i.fas.fa-heart.fa-2x.faa-shake.animated-hover
             %p いいねした人
@@ -27,6 +35,7 @@
           = link_to visiters_user_path  do
             %i.fas.fa-shoe-prints.fa-2x.fa-rotate-270.faa-shake.animated-hover
             %p 足跡
+
 
     .userInfo
       .userInfo_img
@@ -106,9 +115,6 @@
     -else
       %p レビューがありません
 
-
-
-        
     -if current_user.id == @user.id
       .userAction
         .userAction_edit.userAction_common
