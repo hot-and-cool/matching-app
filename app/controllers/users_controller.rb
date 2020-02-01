@@ -6,16 +6,12 @@ class UsersController < ApplicationController
   
   def index
     # 自分以外の異性を抽出
-    @tusers = User.where.not(id:current_user.id,sex:current_user.sex)
+    @defferent_users = User.where.not(id:current_user.id,sex:current_user.sex)
     # # いいねを送った人を抽出
-    @susers = Reaction.includes(:to_user).where(from_user_id: current_user.id, status: 'like').map(&:to_user)
+    @sent_users = Reaction.includes(:to_user).where(from_user_id: current_user.id, status: 'like').map(&:to_user)
 
     # いいねしたら表示させない
-    @users = @tusers - @susers
-
-  
-    
-    
+    @users = @defferent_users - @sent_users
     
   end
 
@@ -25,7 +21,8 @@ class UsersController < ApplicationController
     @user_birthday = (Date.today.strftime("%Y%m%d").to_i - @user.birthday.strftime("%Y%m%d").to_i) / 10000
     @reaction_user_ids = Reaction.includes(:from_user).where(to_user_id: @user.id, status: 'like').order("id DESC").map(&:from_user)
     @comment = Comment.new
-    @comments = Comment.includes(:from_user).where(to_user_id: @user.id).order("id DESC")
+    @comments = Comment.includes(:from_user).where(to_user_id: @user.id).order("id DESC").page(params[:page]).per(5)
+
     if @comments.blank?
       @user_rates = "--"
       else

@@ -1,0 +1,11 @@
+- @comments.each do |comment|
+  .content
+    .row.comments
+      .col-md-2.comments-user
+        = link_to user_path(comment.from_user.id) do
+          = image_tag comment.from_user.img_name.url(:thumb),class:"comments__img"
+
+    = comment.from_user.name
+    = "#{comment.rate}点"
+    = comment.created_at.strftime('%Y/%m/%d %H:%M')
+    = comment.text

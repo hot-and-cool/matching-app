@@ -83,6 +83,8 @@ gem 'active_hash'
 
 gem 'ransack'
 
+gem 'kaminari'
+
 group :development, :test do
   gem 'bullet'
 end
