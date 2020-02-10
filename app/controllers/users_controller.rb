@@ -12,6 +12,9 @@ class UsersController < ApplicationController
 
     # いいねしたら表示させない
     @users = @defferent_users - @sent_users
+
+
+
     
   end
 

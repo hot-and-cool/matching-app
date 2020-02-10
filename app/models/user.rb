@@ -29,6 +29,7 @@ class User < ApplicationRecord
     Reaction.where(from_user_id: current_user.id, to_user_id: user.id)
   end
 
+  
 
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to_active_hash :prefecture

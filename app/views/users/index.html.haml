@@ -23,8 +23,12 @@
               = "#{(Date.today.strftime("%Y%m%d").to_i - user.birthday.strftime("%Y%m%d").to_i) / 10000}歳"
               = user.prefecture.name
               
+              -if Comment.where(to_user_id: user.id).present?
+                %span.fas.fa-star
+                  = Comment.includes(:from_user).where(to_user_id: user.id).average(:rate).ceil(1)
+              -else
+                  
 
-              
             = link_to user_path(user.id) do
               = image_tag user.img_name.url(:thumb),class:"user-image"
             .like
