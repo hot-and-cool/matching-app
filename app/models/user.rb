@@ -3,6 +3,9 @@ class User < ApplicationRecord
   has_many :chat_room_users
   has_many :comments
   has_many :footprints
+  
+  has_many :user_images, :dependent => :destroy
+  accepts_nested_attributes_for :user_images
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable

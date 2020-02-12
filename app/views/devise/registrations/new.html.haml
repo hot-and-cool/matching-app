@@ -8,13 +8,16 @@
         %p アカウント作成
       = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class:"mt-5" }) do |f|
         = devise_error_messages!
-        %label.rounded-circle.userProfileImg{:for => "file_photo"}
-          .userProfileImg_description 画像をアップロード
-          %i.fas.fa-camera.fa-3x
-          = f.file_field :img_name, id: "file_photo"
-        #userImgPreview.userImgPreview
-          %img#thumbnail.userImgPreview_content{:accept => "image/*", :src => ""}/
-          %p.userImgPreview_text 画像をアップロード済み
+
+        = f.fields_for :user_images do |i|
+          %label.rounded-circle.userProfileImg{:for => "file_photo"}
+            .userProfileImg_description 画像をアップロード
+            %i.fas.fa-camera.fa-3x
+            = i.file_field :img_name, multiple:true, id: "file_photo"
+          #userImgPreview.userImgPreview
+            %img#thumbnail.userImgPreview_content{:accept => "image/*", :src => ""}/
+            %p.userImgPreview_text 画像をアップロード済み
+
         .form-group
           %label ニックネーム(必須)
           = f.text_field :name, class: "form-control", placeholder: "名前を入力してください"
